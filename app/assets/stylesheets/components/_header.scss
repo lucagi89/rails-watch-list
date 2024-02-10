@@ -1,0 +1,45 @@
+$size: 70px;
+$button-size: 380px;
+
+
+.card-category {
+  background-size: cover;
+  background-position: center;
+  height: 380px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  overflow: hidden;
+
+  h1 {
+    margin-right: 40%;
+    font-size: $size;
+    font-weight: bold;
+  }
+
+}
+
+.back-btn {
+  height: $button-size;
+  width: $button-size;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0 50% 50% 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 70px;
+  font-size: 70px;
+  margin-left: -(#{$button-size / 2});
+  color: white;
+  opacity: 0;
+  a {
+    text-decoration: none;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,22 @@
+.list_card{
+  text-align: center;
+  width:400px;
+  height: 280px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  transition: all 0.3s ease 0s;
+  &:hover{
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  }
+  h2 {
+    line-height: 240px;
+  }
+}
+
+.card-link{
+  text-decoration: none;
+  color: #000;
+}
