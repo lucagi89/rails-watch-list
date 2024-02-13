@@ -14,8 +14,6 @@
     <% end %>
   <% end %>
   <div>
-    <%= simple_form_for @list do |f| %>
-      <%= f.button :submit, "Add a list", class: "btn btn-gradient" %>
-    <% end %>
+    <%= link_to "Add New List", new_list_path, class:"btn btn-primary" %>
   </div>
 </div>

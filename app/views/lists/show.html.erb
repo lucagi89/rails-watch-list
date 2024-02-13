@@ -10,43 +10,28 @@
 
 <div class="p-5 d-flex flex-wrap gap-5">
 
-  <% if @movies.count > 0 %>
-    <% @movies.each do |movie| %>
+  <% if @movies.any? %>
+  <% @movies.each do |movie| %>
+    <%= form_with(model: [@list, movie]) do |form| %>
       <div class="card" style="width: 18rem;">
         <img src="<%= movie.poster_url %>" class="card-img-top" alt="...">
         <div class="card-body">
           <h3><%= movie.title %></h3>
           <p class="card-text"><%= movie.overview %></p>
-          <% bookmark = @bookmarks.find { |hash| hash[:movie_id] == movie.id} %>
+          <% bookmark = @bookmarks.find { |b| b.movie_id == movie.id } %>
           <p class="card-text"><%= bookmark.comment %></p>
+          <%= form.submit "Add to List", class: "btn btn-primary" %>
         </div>
       </div>
     <% end %>
-  <% else %>
-    <h2>You currently have no movies in this list</h2>
   <% end %>
+<% else %>
+  <h2>You currently have no movies in this list</h2>
+<% end %>
 </div>
 
-<div>
-    <%# <%= simple_form_for @list do |f| %>
-  <%# <%= f.button :submit, "Add a Movie", class: "btn btn-gradient" %>
-    <%# <% end %>
-  </div>
+<%= link_to "Add a Movie", new_list_bookmark_path(@list) %>
 
-
-<%# <%= link_to movies_path, method: :get, class: "btn btn-gradient" do %>
-  <%# <div>
-    Add a Movie
-  </div> %>
-<%# <% end %>
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Add a Movie
-</button>
-
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -55,7 +40,7 @@
         <div class="ms-auto d-flex">
         <%= form_with(url: list_path, method: :get, class: "d-flex my-2 my-lg-0") do %>
         <%= text_field_tag :query, nil, class: "form-control me-2", placeholder: "Search", aria: { label: "Search" } %>
-        <%= button_tag "Search", class: "btn btn-outline-success my-2 my-sm-0", type: "submit" %>
+        <%= button_tag "Search", class: "btn btn-outline-primary my-2 my-sm-0", type: "submit" %>
         <% end %>
       </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -63,19 +48,21 @@
       <div class="modal-body">
         <div class="p-5 d-flex flex-wrap gap-5">
 
-              <% if Movie.all.count > 0 %>
-                <% Movie.all.each do |movie| %>
-                  <div class="card" style="width: 18rem;">
-                    <img src="<%= movie.poster_url %>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h3><%= movie.title %></h3>
-                      <p class="card-text"><%= movie.overview %></p>
-                    </div>
-                  </div>
-                <% end %>
-              <% else %>
-                <h2>You currently have no movies in this list</h2>
-              <% end %>
+              <% if Movie.any? %>
+  <% Movie.all.each do |movie| %>
+    <%= link_to edit_list_path(@list) do %>
+      <div class="card" style="width: 18rem;">
+        <img src="<%= movie.poster_url %>" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3><%= movie.title %></h3>
+          <p class="card-text"><%= movie.overview %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+    <% else %>
+      <h2>You currently have no movies in this list</h2>
+    <% end %>
             </div>
       </div>
       <div class="modal-footer">
@@ -84,3 +71,7 @@
     </div>
   </div>
 </div>
+
+<%= link_to list_path(@list), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>

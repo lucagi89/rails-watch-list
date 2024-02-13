@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :define_list, only: ["show", "create", "edit"]
+  before_action :define_list, only: ["show", "edit", "update", "destroy"]
   def index
     @lists = List.all
     @list = List.new
@@ -16,6 +16,13 @@ class ListsController < ApplicationController
   end
 
   def create
+    @list = List.new(params.require(:list).permit(:name))
+    @list.save
+    if @list.save
+      redirect_to list_path(@list), notice: 'List created successfully.'
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -24,7 +31,9 @@ class ListsController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
+    @list.destroy
+    redirect_to lists_path
   end
 
   private

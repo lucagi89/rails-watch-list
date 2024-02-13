@@ -4,11 +4,9 @@
     <i class="fa-solid fa-backward"></i>
   </div>
   <% end %>
-  <h1>Add a New List </h1>
+  <h1><%= @list.name %></h1>
 </div>
 
-<div class="form-container">
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name, label: "List name " %>
-  <%= f.submit %>
-<% end %></div>
+<% @movies.each do |movie| %>
+  <%= link_to movie.title, list_bookmarks_path(movie_id: movie.id), method: :post %>
+<% end %>
