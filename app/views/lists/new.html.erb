@@ -8,8 +8,20 @@
 </div>
 
 <div class="form-container">
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name, label: "List name " %>
-  <%= f.input :photo, as: :file %>
-  <%= f.submit %>
-<% end %></div>
+  <%= simple_form_for(@list) do |f| %>
+    <%= f.label :name, label: "List name" %>
+    <%= f.input :name, label: false %>
+    <%= f.input :photo, as: :file, label: "Add a photo"%>
+    <% if @list.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@list.errors.count, "error") %> prohibited this list from being saved:</h2>
+        <ul>
+          <% @list.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</div>
