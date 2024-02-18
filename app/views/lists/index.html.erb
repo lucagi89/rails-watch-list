@@ -1,21 +1,33 @@
 <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1vdmllfGVufDB8fDB8fHww)">
-  <div class="back-btn">
+  <%# <div class="back-btn">
     <i class="fa-solid fa-backward"></i>
-  </div>
+  </div> %>
   <h1 class="title">My Lists</h1>
 </div>
 
 
-<div class="d-flex flex-wrap gap-4 m-5">
+<div class="d-flex flex-wrap align-items-center gap-4 m-5">
   <% @lists.each do |list| %>
-  <% image = list.photo.key ? list.photo.key : "../assets/images/default_photo.avif" %>
+    <% image = list.photo.key ? list.photo.key : "../assets/images/default_photo.avif" %>
+  <div class="list_card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path image, height: 300, crop: :fill%>')">
+  <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+  <%= link_to list_path(list), class: "destroy-link", method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+      <i class="fa-solid fa-trash"></i>
+    <% end %>
+</span>
+
+
     <%= link_to list_path(list), class: "card-link" do %>
-      <div class="list_card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path image, height: 300, crop: :fill%>')">
+      <div>
         <h2 class="title"><%= list.name %></h2>
       </div>
     <% end %>
+  </div>
+
   <% end %>
   <div>
-    <%= link_to "Add New List", new_list_path, class:"btn btn-primary" %>
+   <%= link_to new_list_path, class: "btn btn-outline-primary" do %>
+    <i class="fa-solid fa-plus"></i>
+  <% end %>
   </div>
 </div>

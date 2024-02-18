@@ -3,3 +3,11 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap"
 import "@popperjs/core"
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".destroy-link").forEach(function(link) {
+    link.addEventListener("click", function(event) {
+      event.preventDefault(); // Prevent the default click behavior
+    });
+  });
+});

@@ -8,7 +8,7 @@
   <h1 class="title"><%= @list.name %></h1>
 </div>
 
-<div class="p-5 d-flex flex-wrap gap-5">
+<div class="p-5 d-flex flex-wrap align-items-center gap-5">
 
   <% if @list.bookmarks.any? %>
   <% @list.bookmarks.each do |bookmark| %>
@@ -24,30 +24,9 @@
 <% else %>
   <h2 style="width:100%; color:gray;" class="text-center">You currently have no movies in this list</h2>
 <% end %>
-</div>
-
 <%= link_to "Add a Movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Choose a Movie</h5>
-        <div class="ms-auto d-flex">
-        <%= form_with(url: list_path, method: :get, class: "d-flex my-2 my-lg-0") do %>
-        <%= text_field_tag :query, nil, class: "form-control me-2", placeholder: "Search", aria: { label: "Search" } %>
-        <%= button_tag "Search", class: "btn btn-outline-primary my-2 my-sm-0", type: "submit" %>
-        <% end %>
-      </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
 </div>
+
 
 <%= link_to list_path(@list), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
           <i class="fa-solid fa-trash"></i>
